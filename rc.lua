@@ -12,8 +12,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
+local menubar = require("menubar") local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -151,7 +150,7 @@ local tasklist_buttons = gears.table.join(
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
-        local wallpaper = "/home/balder/Pictures/Wallpapers/whitelake.png"
+        local wallpaper = "/home/balder/Pictures/Wallpapers/redmountains.jpg"
         -- If wallpaper is a function, call it with the screen
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
@@ -246,11 +245,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "h", function() awful.client.swap.global_bydirection("left") end,
         { description = "swap LEFT", group = "client" }),
 
-    awful.key({ modkey }, "r",
-        function() awful.util.spawn("rofi -show run -config /home/balder/.config/awesome/rofi.rasi") end,
+    awful.key({ modkey }, "d", function() awful.util.spawn("rofi -show run -config /home/balder/.config/awesome/rofi.rasi") end,
         { description = "Run executable", group = "launcher" }),
-    awful.key({ modkey }, "p",
-        function() awful.util.spawn("rofi -show drun -config /home/balder/.config/awesome/rofi.rasi") end,
+    awful.key({ modkey }, "p", function() awful.util.spawn("rofi -show drun -config /home/balder/.config/awesome/rofi.rasi") end,
         { description = "open program launcher", group = "launcher" }),
 
 
@@ -315,8 +312,7 @@ globalkeys = gears.table.join(
         { description = "increase the number of columns", group = "layout" }),
     awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end,
         { description = "decrease the number of columns", group = "layout" }),
-    awful.key({ modkey, "Shift" }, "Return", function() awful.layout.inc(1) end,
-        { description = "select next", group = "layout" })
+    awful.key({ modkey, "Shift" }, "Return", function() awful.layout.inc(1) end, { description = "select next", group = "layout" })
     ,
     awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout" }),
@@ -463,7 +459,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = {},
-        properties = { border_width = beautiful.border_width * 2,
+        properties = { border_width = beautiful.border_width,
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
@@ -475,9 +471,9 @@ awful.rules.rules = {
     },
     {
         rule_any = { class = { "Polybar" } },
-        properties = {
+        properties = { 
             focusable = false,
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen
+            border_color = beautiful.border_normal,
         }
     },
 
@@ -495,7 +491,7 @@ awful.rules.rules = {
             "Kruler",
             "MessageWin", -- kalarm.
             "Sxiv",
-            -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+            "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
             "Wpa_gui",
             "veromix",
             "xtightvncviewer"
@@ -509,14 +505,13 @@ awful.rules.rules = {
         role = {
             "AlarmWindow", -- Thunderbird's calendar.
             "ConfigManager", -- Thunderbird's about:config.
-            -- "pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
+            "pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
         }
     }, properties = { floating = true } },
 
     -- Add titlebars to normal clients and dialogs
-    {
-        rule_any = { type = { "normal", "dialog" } },
-        properties = { titlebars_enabled = true }
+    { rule_any = { type = { "normal", "dialog" }
+    }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -540,6 +535,20 @@ client.connect_signal("manage", function(c)
     end
 end)
 
+-- Add a titlebar if titlebars_enabled is set to true in the rules.
+client.connect_signal("request::titlebars", function(c)
+    -- buttons for the titlebar
+    local buttons = gears.table.join(
+        awful.button({}, 1, function()
+            c:emit_signal("request::activate", "titlebar", { raise = true })
+            awful.mouse.client.move(c)
+        end),
+        awful.button({}, 3, function()
+            c:emit_signal("request::activate", "titlebar", { raise = true })
+            awful.mouse.client.resize(c)
+        end)
+    )
+end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
@@ -552,14 +561,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- Custom config
-beautiful.useless_gap = 6
+beautiful.useless_gap = 6 
 
 -- Spawn stuff
 awful.spawn.with_shell("xset r rate 220 50")
-awful.spawn.with_shell("setxkbmap -option caps:swapescape") -- swap escape and caps lock
-awful.spawn.with_shell('xinput set-prop "MSFT0001:00 04F3:317C Touchpad" "libinput Natural Scrolling Enabled" 1') -- Enable natural scrolling
 
-awful.spawn("polybar -c /home/balder/.config/awesome/polybar.conf")
 awful.spawn("picom --config /home/balder/.config/awesome/picom.conf -b")
 awful.spawn("polybar -c /home/balder/.config/awesome/polybar.conf")
 
