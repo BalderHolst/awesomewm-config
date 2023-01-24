@@ -559,8 +559,8 @@ awful.spawn.with_shell("xset r rate 220 50")
 awful.spawn.with_shell("setxkbmap -option caps:swapescape") -- swap escape and caps lock
 awful.spawn.with_shell('xinput set-prop "MSFT0001:00 04F3:317C Touchpad" "libinput Natural Scrolling Enabled" 1') -- Enable natural scrolling
 
-awful.spawn("polybar -c /home/balder/.config/awesome/polybar.conf")
+awful.spawn("polybar -c /home/balder/.config/awesome/polybar.ini")
 awful.spawn("picom --config /home/balder/.config/awesome/picom.conf -b")
-awful.spawn("polybar -c /home/balder/.config/awesome/polybar.conf")
+awful.spawn("polybar -c /home/balder/.config/awesome/polybar.ini")
 
 awful.spawn("dunst")
