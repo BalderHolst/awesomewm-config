@@ -567,6 +567,6 @@ beautiful.useless_gap = 6
 awful.spawn.with_shell("xset r rate 220 50")
 
 awful.spawn("picom --config /home/balder/.config/awesome/picom.conf -b")
-awful.spawn("polybar -c /home/balder/.config/awesome/polybar.conf")
+awful.spawn("polybar -c /home/balder/.config/awesome/polybar.ini")
 
 awful.spawn("dunst")
