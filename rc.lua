@@ -266,6 +266,10 @@ globalkeys = gears.table.join(
         { description = "passmenu", group = "launcher" }),
     awful.key({ modkey }, "b", function() awful.util.spawn("brave-browser") end,
         { description = "open Brave", group = "launcher" }),
+    awful.key({ modkey, "Shift" }, "s", function() awful.util.spawn("flameshot gui --clipboard") end,
+        { description = "Take Screenshot to Clipboard", group = "launcher" }),
+    awful.key({ modkey, "Shift", "Control" }, "s", function() awful.util.spawn("flameshot gui --path /home/balder/Pictures/Screenshots") end,
+        { description = "Take Screenshot to Clipboard", group = "launcher" }),
 
 
     awful.key({ modkey, }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
@@ -329,10 +333,13 @@ globalkeys = gears.table.join(
     awful.key({ "Shift" }, "XF86AudioLowerVolume", function() awful.spawn("pulsemixer --change-volume -1 --max-volume 100")  end),
 
     -- Brightness
-    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set +10%")  end),
-    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 10%-")  end),
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set +1%")  end),
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 1%-")  end),
     awful.key({ "Shift" }, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set 100")  end),
-    awful.key({ "Shift" }, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 10%")  end),
+    awful.key({ "Shift" }, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 0%")  end),
+
+    -- Connect to remote windows desktop
+    awful.key({ modkey, "Shift", "Control"}, "w", function () awful.spawn("remmina -c /home/balder/.local/share/remmina/group_rdp_the-government_192-168-0-246.remmina") end),
 
 
     awful.key({ modkey, "Control" }, "n",
@@ -508,7 +515,7 @@ awful.rules.rules = {
             "Gpick",
             "Kruler",
             "MessageWin", -- kalarm.
-            "Sxiv",
+            -- "Sxiv",
             -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
             "Wpa_gui",
             "veromix",
