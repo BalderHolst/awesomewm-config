@@ -317,6 +317,20 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout" }),
 
+    -- Volume
+    awful.key({}, "XF86AudioMute", function() awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")  end),
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn("pulsemixer --change-volume +10 --max-volume 100")  end),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn("pulsemixer --change-volume -10 --max-volume 100")  end),
+    awful.key({ "Shift" }, "XF86AudioRaiseVolume", function() awful.spawn("pulsemixer --change-volume +1 --max-volume 100")  end),
+    awful.key({ "Shift" }, "XF86AudioLowerVolume", function() awful.spawn("pulsemixer --change-volume -1 --max-volume 100")  end),
+
+    -- Brightness
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set +10%")  end),
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 10%-")  end),
+    awful.key({ "Shift" }, "XF86MonBrightnessUp", function() awful.spawn("brightnessctl set 100")  end),
+    awful.key({ "Shift" }, "XF86MonBrightnessDown", function() awful.spawn("brightnessctl set 10%")  end),
+
+
     awful.key({ modkey, "Control" }, "n",
         function()
             local c = awful.client.restore()
