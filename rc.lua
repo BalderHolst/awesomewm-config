@@ -254,7 +254,7 @@ globalkeys = gears.table.join(
         { description = "open program launcher", group = "launcher" }),
 
 
-    awful.key({ modkey }, "e", function() awful.util.spawn("open_dir") end,
+    awful.key({ modkey }, "e", function() awful.util.spawn("bmark open") end,
         { description = "open a terminal in a bookmarked directory", group = "launcher" }),
     awful.key({ modkey }, "c", function() awful.util.spawn("config") end,
         { description = "open a config file", group = "launcher" }),
