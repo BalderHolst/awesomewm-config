@@ -245,6 +245,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "h", function() awful.client.swap.global_bydirection("left") end,
         { description = "swap LEFT", group = "client" }),
 
+    awful.key({ modkey }, "e", function() awful.util.spawn("bmark open") end,
+        { description = "Open a terminal in a bookmarked location", group = "launcher" }),
     awful.key({ modkey }, "d", function() awful.util.spawn("rofi -show run -config /home/balder/.config/awesome/rofi.rasi") end,
         { description = "Run executable", group = "launcher" }),
     awful.key({ modkey }, "p", function() awful.util.spawn("rofi -show drun -config /home/balder/.config/awesome/rofi.rasi") end,
